@@ -2,14 +2,8 @@
 class Node:
     def __init__(self,data):
         self.data = data
-        self.children = []
-
-    def addChild(n):
-        self.children.append(n)
-    def addLeftChild(n):
-        self.children.setitem(0,n)
-    def addRightChild(n):
-        self.children.setitem(1,n)
+        self.left = None
+        self.right = None
 
 class BSTree:
     def __init__(self):
@@ -20,29 +14,33 @@ class BSTree:
             self.root = Node(data)
             return
         iter = self.root
-        while iter is not None:
+        done = False
+        while not done:
             if data <= iter.data:
-                if iter.children[0] is None:
-                    iter.addLeftChild(n)
+                if iter.left is None:
+                    iter.left = Node(data)
+                    done = True
                 else:
-                    iter = iter.children[0]
+                    iter = iter.left    
             else:
-                if iter.children[1] is None:
-                    iter.addRightChild(n)
+                if iter.right is None:
+                    iter.right = Node(data)
+                    done = True
                 else:
-                    iter = iter.children[1]
+                    iter = iter.right
 
-    def inorderPrint(self,n):
-        if n is None: return
-        self.inorderPrint(n.children[0])
-        print(n.data)
-        self.inorderPrint(n.children[1])
+    def inorder(self,node):
+        if node is None: return
+        self.inorder(node.left)
+        print(node.data)
+        self.inorder(node.right)
+
     def walk(self):
-        self.inorderPrint(self.root)
+        self.inorder(self.root)
 
 if __name__=="__main__":
     tree = BSTree()
-    tree.insert(7)
-    tree.insert(4)
-    tree.insert(10)
+    vals=[7,4,10,12,8,2,5]
+    for i in vals:
+        tree.insert(i)
     tree.walk()
