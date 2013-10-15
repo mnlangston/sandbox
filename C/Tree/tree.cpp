@@ -8,7 +8,6 @@ bool compactTree::findSum(int s){
     stk.push(0);
     while(!stk.empty()){
         int curIndex = stk.top(); stk.pop();
-        printf("curIndex = %d\n",curIndex);
         tree[getLeftOf(curIndex)] += tree[curIndex];
         //is left a leaf node?
         bool isLeftLeaf = (getLeftOf(getLeftOf(curIndex)) == -1) && (getRightOf(getLeftOf(curIndex)) == -1);
@@ -22,11 +21,9 @@ bool compactTree::findSum(int s){
         
         if((tree[getLeftOf(curIndex)] != -1) && tree[getLeftOf(curIndex)] < s){
             stk.push(getLeftOf(curIndex));
-            printf("Pushed %d to the stack\n",getLeftOf(curIndex));
         }
         if((tree[getRightOf(curIndex)] != -1) && tree[getRightOf(curIndex)] < s){
             stk.push(getRightOf(curIndex));
-            printf("Pushed %d to the stack\n",getRightOf(curIndex));
         }
     }
     return false;
